@@ -124,6 +124,9 @@ def get_bulk_explanations(wrong_answers):
 
 
 # --- FUNCTION 4: Generate Personalized Practice Questions ---
+# core/ai_tutor.py
+
+# --- FUNCTION 4: Generate Personalized Practice Questions ---
 def generate_personalized_quiz(weaknesses, num_questions=5):
     """
     Generates a new, targeted quiz based on identified weaknesses.
@@ -136,7 +139,13 @@ def generate_personalized_quiz(weaknesses, num_questions=5):
     Create a new, targeted practice quiz of {num_questions} multiple-choice questions.
     Each question should directly address one or more of the identified weaknesses.
 
-    Return the output as a single JSON object, following the same format as the evaluation test: a key "questions" which is a list of question dictionaries.
+    Return the output as a single, raw JSON object and nothing else. The object must have a key "questions" which is a list.
+    EACH item in the "questions" list MUST be a dictionary with the following THREE keys:
+    1. "question_text": The text of the question.
+    2. "options": A dictionary of four options, like {{"A": "text", "B": "text", ...}}.
+    3. "correct_answer": The letter of the correct option (e.g., "C").
+
+    Do not deviate from this format. Every question must have a "correct_answer" key.
     """
     try:
         response = model.generate_content(prompt)
@@ -145,7 +154,6 @@ def generate_personalized_quiz(weaknesses, num_questions=5):
     except Exception as e:
         print(f"Error generating personalized quiz: {e}")
         return None
-
 
 # --- FUNCTION 5: General "Ask the Tutor" ---
 def ask_tutor_question(user_question, chat_history=None):

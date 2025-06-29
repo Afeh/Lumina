@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Personalized Practice{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <div class="border-b pb-4 mb-6">
+        <h1 class="text-2xl font-bold text-brand-primary">Personalized Practice Quiz</h1>
+        <p class="text-gray-600 mt-1">A short quiz targeted at your weak areas.</p>
+    </div>
+    
+    <form method="POST" action="{% url 'submit_practice' %}">
+        {% csrf_token %}
+        
+        {% for question in questions %}
+        <div class="mb-8 p-4 border rounded-lg">
+            <p class="font-semibold text-lg mb-4">{{ forloop.counter }}. {% if question.question_text %}{{ question.question_text }}{% else %}{{ question.question }}{% endif %}</p>
+            <div class="space-y-2">
+                {% for key, value in question.options.items %}
+                <label class="flex items-center p-3 rounded-lg border hover:bg-brand-light transition-colors cursor-pointer">
+                    <!-- Note: No parentloop needed here as it's not a nested loop in the same way -->
+                    <input type="radio" name="question_{{ forloop.parentloop.counter0 }}" value="{{ key }}" class="mr-3 h-4 w-4 text-brand-secondary focus:ring-brand-secondary" required>
+                    <span>{{ key }}. {{ value }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="w-full mt-6 py-3 px-4 bg-brand-secondary text-white text-lg font-bold rounded-md hover:opacity-90">
+            Submit Practice
+        </button>
+    </form>
+</div>
+{% endblock %}

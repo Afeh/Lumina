@@ -216,3 +216,104 @@ def evaluation_results_view(request, result_id):
         'result': result
     }
     return render(request, 'evaluation/results.html', context)
+
+
+@login_required
+def start_practice_view(request, result_id):
+    """
+    Generates a personalized practice quiz based on a previous evaluation result.
+    """
+    try:
+        # Get the original evaluation result to find the user's weaknesses
+        evaluation = EvaluationResult.objects.get(id=result_id, user=request.user)
+    except EvaluationResult.DoesNotExist:
+        return redirect('dashboard') # Or show an error
+
+    # Get the list of weaknesses
+    weaknesses = evaluation.detailed_weaknesses
+    if not weaknesses:
+        # Handle case where user had a perfect score and no weaknesses
+        # For now, redirect to dashboard. Later, could offer a general practice test.
+        return redirect('dashboard')
+
+    # Call the AI to generate a targeted quiz
+    quiz_data = ai_tutor.generate_personalized_quiz(weaknesses, num_questions=5) # 5 questions for a quick practice
+
+    if not quiz_data or 'questions' not in quiz_data:
+        return render(request, 'evaluation/error.html', {'message': 'Could not generate a personalized practice set. Please try again later.'})
+
+    # Store the practice quiz in the session
+    request.session['practice_quiz_questions'] = quiz_data['questions']
+    
+    return redirect('take_practice')
+
+@login_required
+def take_practice_view(request):
+    """
+    Displays the personalized practice quiz questions.
+    """
+    questions = request.session.get('practice_quiz_questions')
+    if not questions:
+        # User might have accessed this URL directly
+        return redirect('dashboard')
+    
+    context = {'questions': questions}
+    return render(request, 'practice/take.html', context)
+
+
+# core/views.py
+
+@login_required
+def submit_practice_view(request):
+    """
+    Processes the practice quiz and shows the results.
+    """
+    if request.method != 'POST':
+        return redirect('dashboard')
+
+    questions = request.session.get('practice_quiz_questions', [])
+    if not questions:
+        return redirect('dashboard')
+
+    score = 0
+    points_change = 0
+    results_data = []
+
+    for i, q in enumerate(questions):
+        question_name = f"question_{i}"
+        user_answer = request.POST.get(question_name)
+        
+        # THE FIX: Use .get() to avoid a KeyError if the key is missing.
+        correct_answer = q.get('correct_answer')
+        is_correct = (user_answer == correct_answer)
+
+        if is_correct:
+            score += 1
+            points_change += 10
+        else:
+            points_change -= 5
+
+        question_text = q.get('question_text') or q.get('question', 'Error: Question text not found.')
+
+        results_data.append({
+            'question_text': question_text,
+            'options': q.get('options', {}), # Also make options access safe
+            'user_answer': user_answer,
+            'correct_answer': correct_answer, # Use the safe variable
+            'is_correct': is_correct
+        })
+    
+    # Update user's points
+    user = request.user
+    user.points += points_change
+    user.save()
+
+    # Clean up the session
+    del request.session['practice_quiz_questions']
+    
+    context = {
+        'results': results_data,
+        'score': score,
+        'total': len(questions)
+    }
+    return render(request, 'practice/results.html', context)

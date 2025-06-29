@@ -25,7 +25,7 @@
         </ul>
         <div class="mt-8 text-center">
             <a href="#review" class="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-secondary">Review Your Answers</a>
-            <a href="#" class="ml-4 px-8 py-3 bg-brand-secondary text-white font-bold rounded-lg hover:opacity-90">Start Personalized Practice</a>
+            <a href="{% url 'start_practice' result.id %}" class="ml-4 px-8 py-3 bg-brand-secondary text-white font-bold rounded-lg hover:opacity-90">Start Personalized Practice</a>
         </div>
     </div>
 
@@ -35,7 +35,7 @@
         <div class="space-y-6">
             {% for item in result.full_results_data %}
                 <div class="border rounded-lg p-4 {% if item.is_correct %}border-green-300 bg-green-50{% else %}border-red-300 bg-red-50{% endif %}">
-                    <p class="font-semibold text-lg">{{ forloop.counter }}. {{ item.question_text }}</p>
+                    <p class="font-semibold text-lg">{{ forloop.counter }}. {% if item.question_text %}{{ item.question_text }}{% else %}{{ item.question }}{% endif %}</p>
                     <div class="mt-2 text-gray-600">
                         <p><strong>Your Answer:</strong> 
                             <span class="{% if item.is_correct %}text-green-700{% else %}text-red-700{% endif %}">
