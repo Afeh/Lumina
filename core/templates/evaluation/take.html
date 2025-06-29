@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Evaluation Test{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <div class="flex justify-between items-center border-b pb-4 mb-6">
+        <h1 class="text-2xl font-bold text-brand-primary">WAEC English Evaluation</h1>
+        <div id="timer" class="text-xl font-bold bg-red-100 text-red-700 px-4 py-2 rounded-lg">15:00</div>
+    </div>
+    
+    <form id="evaluation-form" method="POST" action="{% url 'submit_evaluation' %}">
+        {% csrf_token %}
+        
+        {% for question in questions %}
+        <div class="mb-8 p-4 border rounded-lg">
+            <p class="font-semibold text-lg mb-4">{{ forloop.counter }}. {{ question.question_text }}</p>
+            <div class="space-y-2">
+                {% for key, value in question.options.items %}
+                <label class="flex items-center p-3 rounded-lg border hover:bg-brand-light transition-colors cursor-pointer">
+                    <input type="radio" name="question_{{ forloop.parentloop.counter0 }}" value="{{ key }}" class="mr-3 h-4 w-4 text-brand-secondary focus:ring-brand-secondary" required>
+                    <span>{{ key }}. {{ value }}</span>
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="w-full mt-6 py-3 px-4 bg-brand-secondary text-white text-lg font-bold rounded-md hover:opacity-90">
+            Submit My Answers
+        </button>
+    </form>
+</div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const timerDisplay = document.getElementById('timer');
+        const form = document.getElementById('evaluation-form');
+        const deadline = new Date("{{ deadline_iso }}").getTime();
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = deadline - now;
+
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                timerDisplay.textContent = "Time's Up!";
+                timerDisplay.classList.add('animate-pulse');
+                form.submit(); // Automatically submit the form when time is up
+            } else {
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }, 1000);
+    });
+</script>
+{% endblock %}
+{% endblock %}

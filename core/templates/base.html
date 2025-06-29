@@ -1,0 +1,92 @@
+<!-- core/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina - {% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define Brand Colors as CSS Variables */
+		html {
+            scroll-behavior: smooth;
+        }
+        :root {
+            --brand-primary: #0E3A7B;
+            --brand-secondary: #1556B7;
+            --brand-light: #EDF3FD;
+        }
+        .bg-brand-primary { background-color: var(--brand-primary); }
+        .text-brand-primary { color: var(--brand-primary); }
+		.text-brand-light { color: var(--brand-light); } 
+
+		.bg-brand-secondary { background-color: var(--brand-secondary); }
+
+		.hover\:text-brand-primary:hover {
+            color: var(--brand-primary);
+        }
+
+		.hover\:border-brand-primary:hover {
+			border-color: var(--brand-primary);
+		}
+
+		.hover\:bg-brand-secondary:hover {
+			background-color: var(--brand-primary);
+		}
+
+        /* === NEW CSS FOR HERO BACKGROUND === */
+        .hero-background {
+            position: relative; /* Needed for the overlay */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* The dark blue overlay */
+        .hero-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--brand-primary);
+            opacity: 0.75; /* Adjust opacity (0.0 to 1.0) as needed */
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-brand-light font-sans">
+    <nav class="bg-white shadow-md p-4 sticky top-0 z-50"> <!-- Added sticky top-0 z-50 -->
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'landing' %}" class="text-2xl font-bold text-brand-primary">Lumina</a>
+            <div>
+                {% comment %} UNCOMMENT THIS BLOCK {% endcomment %}
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="mx-2 text-gray-700 hover:text-brand-secondary">Dashboard</a>
+                    {% comment %} <a href="{% url 'leaderboard' %}" class="mx-2 text-gray-700 hover:text-brand-secondary">Leaderboard</a> {% endcomment %}
+                    <a href="{% url 'logout' %}" class="ml-4 px-4 py-2 bg-brand-primary text-white rounded-lg hover:bg-brand-secondary">Logout</a>
+                {% else %}
+ <!-- Login Link: Text turns to primary brand color on hover -->
+                    <a href="{% url 'login' %}" class="mx-2 py-2 px-4 rounded-lg text-gray-700 font-medium 
+                                   hover:bg-brand-secondary hover:text-white
+                                   transition-colors duration-300">
+    Login
+</a>
+                    
+                    <!-- Sign Up Button: Inverts colors on hover -->
+                    <a href="{% url 'signup' %}" class="ml-2 px-4 py-2 bg-brand-primary text-white font-medium rounded-lg hover:bg-white hover:text-brand-primary hover:border-brand-primary transition-all duration-300">
+                        Sign Up
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-8 p-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!-- core/templates/landing.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}AI English Tutor for WAEC Success{% endblock %}
+
+{% block content %}
+<div class="space-y-16 md:space-y-24">
+
+    <!-- 1. Hero Section -->
+    <header 
+        class="hero-background text-center pt-12 pb-8 md:pt-20 md:pb-16" 
+        style="background-image: url('{% static 'images/hero.jpg' %}')">
+        
+        <!-- This div contains all the content and sits on top of the overlay -->
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <!-- Pill Tags -->
+            <div class="flex justify-center space-x-2 md:space-x-4 mb-4">
+                <span class="bg-white/20 backdrop-blur-sm text-white py-1 px-3 rounded-full text-xs sm:text-sm font-semibold border border-white/30">📚 Smart Learning</span>
+                <span class="bg-white/20 backdrop-blur-sm text-white py-1 px-3 rounded-full text-xs sm:text-sm font-semibold border border-white/30">🏆 Gamified Progress</span>
+                <span class="bg-white/20 backdrop-blur-sm text-white py-1 px-3 rounded-full text-xs sm:text-sm font-semibold border border-white/30">🎯 Personalized Feedback</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-md">
+                Master WAEC English with AI-Powered Tutoring
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-brand-light drop-shadow">
+                Struggling with WAEC English? Lumina is your personalized AI tutor, designed to help Nigerian students excel in Lexis & Structure, Comprehension, and Orals—completely free!
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="{% url 'signup' %}" class="w-full sm:w-auto px-8 py-3 bg-brand-secondary text-white text-lg font-bold rounded-lg shadow-lg hover:opacity-90 transition-opacity">
+                    Get Started for Free
+                </a>
+                <a href="#how-it-works" class="w-full sm:w-auto px-8 py-3 bg-transparent border-2 border-white text-white text-lg font-bold rounded-lg hover:bg-white hover:text-brand-primary transition-colors">
+    				How It Works
+				</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. "Why Choose Lumina?" Section -->
+    <section class="py-16 bg-white rounded-xl shadow-sm">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-primary">Why Choose Lumina?</h2>
+                <p class="mt-2 text-lg text-gray-500">Everything you need to succeed in one place.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <!-- Feature 1 -->
+                <div class="p-4">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-brand-light rounded-full mb-4">
+                        <svg class="h-8 w-8 text-brand-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-1.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-primary">AI-Powered Weakness Detection</h3>
+                    <p class="mt-2 text-gray-600">Get instant, precise insights into your specific areas of weakness.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="p-4">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-brand-light rounded-full mb-4">
+                        <svg class="h-8 w-8 text-brand-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-primary">Personalized Study Plans</h3>
+                    <p class="mt-2 text-gray-600">Practice with custom quizzes and exercises tailored just for you.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="p-4">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-brand-light rounded-full mb-4">
+                        <svg class="h-8 w-8 text-brand-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-6.75c-.621 0-1.125.504-1.125 1.125v3.375m9 0h-9" /><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 21.75h4.5M12 18.75v3" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14.25c-2.485 0-4.5-2.015-4.5-4.5s2.015-4.5 4.5-4.5 4.5 2.015 4.5 4.5-2.015 4.5-4.5 4.5z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-primary">Leaderboards & Rewards</h3>
+                    <p class="mt-2 text-gray-600">Compete with peers in your school, state, and across Nigeria.</p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="p-4">
+                    <div class="flex items-center justify-center h-16 w-16 mx-auto bg-brand-light rounded-full mb-4">
+                        <svg class="h-8 w-8 text-brand-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-primary">WAEC-Aligned Content</h3>
+                    <p class="mt-2 text-gray-600">Practice with official past questions and AI-generated exercises.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. "How It Works" Section -->
+    <!-- 3. "How It Works" Section -->
+<section id="how-it-works" class="max-w-4xl mx-auto px-4">
+    <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-brand-primary">Get Started in 3 Simple Steps</h2>
+    </div>
+    <div class="relative">
+        <!-- The connecting line -->
+        <div class="hidden md:block absolute left-1/2 top-5 h-[calc(100%-2.5rem)] w-px bg-gray-300 -translate-x-1/2"></div>
+
+        <!-- Step 1 -->
+        <div class="md:grid md:grid-cols-2 md:gap-16 items-start mb-16">
+            <!-- Content for the left column. We use flexbox for alignment. -->
+            <div class="flex flex-col md:flex-row items-center md:justify-end gap-4 md:gap-6">
+                <!-- Text Block -->
+                <div class="text-center md:text-right order-2 md:order-1">
+                    <h3 class="text-2xl font-bold text-brand-primary">Sign Up & Take Assessment</h3>
+                    <p class="text-gray-600">Join in seconds and take a quick 15-minute test to pinpoint your current level.</p>
+                </div>
+                <!-- Number Bubble -->
+                <div class="flex-shrink-0 order-1 md:order-2">
+                    <span class="flex items-center justify-center bg-brand-secondary text-white h-10 w-10 rounded-full text-xl font-bold">1</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="md:grid md:grid-cols-2 md:gap-16 items-start mb-16">
+            <!-- Empty div to push content to the second column -->
+            <div class="hidden md:block"></div>
+            <!-- Content for the right column. -->
+            <div class="flex flex-col md:flex-row items-center md:justify-start gap-4 md:gap-6">
+                <!-- Text Block -->
+                <div class="text-center md:text-left order-2">
+                    <h3 class="text-2xl font-bold text-brand-primary">Get Instant AI Feedback</h3>
+                    <p class="text-gray-600">Receive a detailed breakdown of your weaknesses and why you made mistakes.</p>
+                </div>
+                <!-- Number Bubble -->
+                <div class="flex-shrink-0 order-1">
+                    <span class="flex items-center justify-center bg-brand-secondary text-white h-10 w-10 rounded-full text-xl font-bold">2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="md:grid md:grid-cols-2 md:gap-16 items-start">
+            <!-- Content for the left column. -->
+            <div class="flex flex-col md:flex-row items-center md:justify-end gap-4 md:gap-6">
+                <!-- Text Block -->
+                <div class="text-center md:text-right order-2 md:order-1">
+                    <h3 class="text-2xl font-bold text-brand-primary">Practice, Improve & Climb</h3>
+                    <p class="text-gray-600">Use your personalized tests to master topics, earn points, and top the leaderboards.</p>
+                </div>
+                <!-- Number Bubble -->
+                <div class="flex-shrink-0 order-1 md:order-2">
+                    <span class="flex items-center justify-center bg-brand-secondary text-white h-10 w-10 rounded-full text-xl font-bold">3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4. Testimonials Section -->
+<section class="py-16 bg-white rounded-xl shadow-sm">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-brand-primary">Join Thousands of Students Learning Smarter</h2>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Testimonial 1 -->
+            <div class="bg-brand-light p-6 rounded-lg flex items-start gap-5">
+                <!-- Avatar -->
+                <img 
+                    class="h-14 w-14 rounded-full flex-shrink-0 object-cover" 
+                    src="https://ui-avatars.com/api/?name=Chidinma&background=1556B7&color=fff&bold=true" 
+                    alt="Avatar for Chidinma"
+                />
+                <!-- Content -->
+                <div class="flex-grow">
+                    <blockquote class="text-gray-800 text-lg leading-relaxed">
+                        "Lumina helped me improve my comprehension in just 2 weeks! The personalized quizzes were a game-changer."
+                    </blockquote>
+                    <footer class="mt-3">
+                        <p class="font-bold text-brand-primary">Chidinma O.</p>
+                        <p class="text-sm text-gray-500">Kings College, Lagos State</p>
+                    </footer>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-brand-light p-6 rounded-lg flex items-start gap-5">
+                <!-- Avatar -->
+                <img 
+                    class="h-14 w-14 rounded-full flex-shrink-0 object-cover" 
+                    src="https://ui-avatars.com/api/?name=Emeka&background=0E3A7B&color=fff&bold=true" 
+                    alt="Avatar for Emeka"
+                />
+                <!-- Content -->
+                <div class="flex-grow">
+                    <blockquote class="text-gray-800 text-lg leading-relaxed">
+                        "The AI explanations made grammar rules so clear! I finally understand stress patterns for my Orals."
+                    </blockquote>
+                    <footer class="mt-3">
+                        <p class="font-bold text-brand-primary">Emeka N.</p>
+                        <p class="text-sm text-gray-500">Deeper Life High School, Enugu State</p>
+                    </footer>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <!-- 5. Final CTA Section -->
+    <section class="text-center py-16">
+        <div class="max-w-2xl mx-auto px-4">
+            <h2 class="text-4xl font-extrabold text-brand-primary">Ready to shine in WAEC? ✨</h2>
+            <p class="mt-3 text-lg text-gray-600">
+                Limited Beta Access – Sign up now and be one of the first to transform your learning.
+            </p>
+            <div class="mt-8">
+                <a href="{% url 'signup' %}" class="px-12 py-4 bg-brand-secondary text-white text-xl font-bold rounded-lg shadow-xl hover:opacity-90 transition-opacity">
+                    Sign Up Now – It’s Free!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="bg-brand-primary text-gray-300 text-sm">
+        <div class="max-w-6xl mx-auto py-6 px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <p>© 2024 Lumina – Bringing Light to Your Learning</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white">Privacy Policy</a>
+                <a href="#" class="hover:text-white">Terms of Service</a>
+                <a href="#" class="hover:text-white">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<style>
+    #how-it-works {
+        scroll-margin-top: 5rem; /* Adjust this value if your navbar height changes */
+    }
+</style>
+{% endblock %}

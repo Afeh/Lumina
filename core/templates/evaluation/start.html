@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Start Your Evaluation{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center py-16">
+    <h1 class="text-4xl font-extrabold text-brand-primary">Your Diagnostic Test</h1>
+    <p class="mt-4 text-lg text-gray-600">
+        Let's find out your strengths and weaknesses! This is a 15-question test with a strict 15-minute time limit. Your results will be used to create your personalized learning path.
+    </p>
+    <div class="mt-8">
+        <form method="POST" action="{% url 'take_evaluation' %}">
+            {% csrf_token %}
+            <button type="submit" class="px-12 py-4 bg-brand-secondary text-white text-xl font-bold rounded-lg shadow-xl hover:opacity-90 transition-opacity">
+                Start Test Now
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}An Error Occurred{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto text-center py-16">
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-6 rounded-lg shadow-md" role="alert">
+        <h1 class="text-3xl font-extrabold text-red-800">Oops! Something went wrong.</h1>
+        <p class="mt-4 text-lg text-red-900">
+            We couldn't prepare your evaluation test at this moment. 
+        </p>
+        {% if message %}
+            <p class="mt-2 text-md text-red-800 bg-red-200 p-3 rounded">
+                <strong>Details:</strong> {{ message }}
+            </p>
+        {% endif %}
+    </div>
+    <div class="mt-8">
+        <a href="{% url 'dashboard' %}" class="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-secondary">
+            Return to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

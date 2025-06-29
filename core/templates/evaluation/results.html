@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}Your Evaluation Results{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+    <!-- Header -->
+    <div class="text-center bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-4xl font-extrabold text-brand-primary">Test Complete!</h1>
+        <p class="text-2xl mt-2 text-gray-700">Your Score: 
+            <span class="font-bold text-brand-secondary">{{ result.score }} / {{ result.total_questions }}</span>
+        </p>
+    </div>
+
+    <!-- AI Analysis -->
+    <div class="bg-white p-8 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-bold text-brand-primary mb-4">AI Performance Analysis</h2>
+        <p class="text-lg italic text-gray-800 bg-brand-light p-4 rounded-md">"{{ result.weakness_summary }}"</p>
+        
+        <h3 class="text-xl font-bold text-brand-primary mt-6 mb-3">Key Areas to Focus On:</h3>
+        <ul class="list-disc list-inside space-y-2 text-gray-700">
+            {% for weakness in result.detailed_weaknesses %}
+                <li>{{ weakness }}</li>
+            {% endfor %}
+        </ul>
+        <div class="mt-8 text-center">
+            <a href="#review" class="px-8 py-3 bg-brand-primary text-white font-bold rounded-lg hover:bg-brand-secondary">Review Your Answers</a>
+            <a href="#" class="ml-4 px-8 py-3 bg-brand-secondary text-white font-bold rounded-lg hover:opacity-90">Start Personalized Practice</a>
+        </div>
+    </div>
+
+    <!-- Answer Review Section -->
+    <div id="review" class="bg-white p-8 rounded-xl shadow-lg" style="scroll-margin-top: 5rem;">
+        <h2 class="text-2xl font-bold text-brand-primary mb-6">Answer Review</h2>
+        <div class="space-y-6">
+            {% for item in result.full_results_data %}
+                <div class="border rounded-lg p-4 {% if item.is_correct %}border-green-300 bg-green-50{% else %}border-red-300 bg-red-50{% endif %}">
+                    <p class="font-semibold text-lg">{{ forloop.counter }}. {{ item.question_text }}</p>
+                    <div class="mt-2 text-gray-600">
+                        <p><strong>Your Answer:</strong> 
+                            <span class="{% if item.is_correct %}text-green-700{% else %}text-red-700{% endif %}">
+                                {% if item.user_answer %}
+                                    {{ item.user_answer }}. {{ item.options|get_item:item.user_answer }}
+                                {% else %}
+                                    <span class="italic">Not Answered</span>
+                                {% endif %}
+                            </span>
+                        </p>
+                        {% if not item.is_correct %}
+                            <p class="mt-1"><strong>Correct Answer:</strong> <span class="text-green-700">{{ item.correct_answer }}. {{ item.options|get_item:item.correct_answer }}</span></p>
+                            
+                            <!-- AI Explanation Accordion -->
+                            <details class="mt-4 bg-white rounded-lg p-3 border">
+                                <summary class="font-semibold text-brand-primary cursor-pointer">View AI Explanation</summary>
+                                <div class="prose max-w-none mt-2 pt-2 border-t text-gray-800">
+                                    {{ item.explanation|linebreaksbr }}
+                                </div>
+                            </details>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% comment %} Add a custom template filter to get dictionary values {% endcomment %}
+{% comment %} Create a folder 'templatetags' in your 'core' app, add an __init__.py file, and a 'custom_filters.py' file with the code below {% endcomment %}
+
+{% endblock %}
