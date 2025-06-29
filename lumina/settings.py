@@ -63,12 +63,12 @@ WSGI_APPLICATION = 'lumina.wsgi.application'
 
 RENDER_DISK_MOUNT_PATH = '/var/data'
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(RENDER_DISK_MOUNT_PATH, 'db.sqlite3'),
-        }
-    }
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(RENDER_DISK_MOUNT_PATH, 'db.sqlite3'),
+#         }
+#     }
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
