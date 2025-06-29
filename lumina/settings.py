@@ -12,9 +12,9 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = 'django-insecure-5xc=tss(54q+ff)f4doycg4b&3!8a&9l2u*m0e(z-g9)130e(*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -60,6 +61,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'lumina.wsgi.application'
 
+RENDER_DISK_MOUNT_PATH = '/var/data'
+
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(RENDER_DISK_MOUNT_PATH, 'db.sqlite3'),
+        }
+    }
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -121,3 +130,8 @@ LOGOUT_REDIRECT_URL = 'landing'
 
 # COME BACK TO THIS TO FIX THE OPENAI AND GOOGLE AI STUDIO API KEYS
 GOOGLE_API_KEY = env('GOOGLE_API_KEY')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
